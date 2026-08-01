@@ -1,0 +1,64 @@
+@use 'colors';
+
+
+.profile_photo{
+    border-radius: 100%;
+    width: 11rem;
+}
+
+body{
+    background-color: colors.$EBONY_CLAY;
+    color: colors.$ALTO;
+}
+
+main{
+    max-width: 47.8125rem;
+}
+
+p{
+    color: colors.$SILVER;  
+}
+
+.headliner{
+    font-size: 1.3rem;
+
+}
+
+.navbar{
+    font-size: 1.2rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.nav-group{
+        color: colors.$VIVID_TANGERINE;
+    }
+
+.posts{
+    color: white;
+    h2{
+        color: colors.$GLANDIS;
+    }
+}
+
+.modal-box{
+    background-color: colors.$EBONY_CLAY !important;
+    color: colors.$ALTO !important;
+    border-radius: 1.25rem !important;
+    border: 5px solid black;
+}
+
+input{
+    border: .1rem solid colors.$PRIMARY;
+    min-width: 80%;
+}
+
+textarea{
+    min-width: 80%;
+    min-height: 10rem;
+}
+
+.btn-Style{
+    background-color: colors.$EAST_BAY;
+    color: colors.$GLANDIS;
+}

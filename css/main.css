@@ -1,1 +1,60 @@
-/*# sourceMappingURL=main.css.map */
+.profile_photo {
+  border-radius: 100%;
+  width: 11rem;
+}
+
+body {
+  background-color: #212434;
+  color: #D7D7D7;
+}
+
+main {
+  max-width: 47.8125rem;
+}
+
+p {
+  color: #BBBBBB;
+}
+
+.headliner {
+  font-size: 1.3rem;
+}
+
+.navbar {
+  font-size: 1.2rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.nav-group {
+  color: #FF8282;
+}
+
+.posts {
+  color: white;
+}
+.posts h2 {
+  color: #FFD082;
+}
+
+.modal-box {
+  background-color: #212434 !important;
+  color: #D7D7D7 !important;
+  border-radius: 1.25rem !important;
+  border: 5px solid black;
+}
+
+input {
+  border: 0.1rem solid #570df8;
+  min-width: 80%;
+}
+
+textarea {
+  min-width: 80%;
+  min-height: 10rem;
+}
+
+.btn-Style {
+  background-color: #3F446F;
+  color: #FFD082;
+}/*# sourceMappingURL=main.css.map */
