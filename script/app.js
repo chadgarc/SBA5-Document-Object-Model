@@ -12,7 +12,8 @@ const cancelBtn = document.getElementById("cancelBtn");
 const postsSection = document.getElementById("PostsSection");
 const postTemplate = document.getElementById("postTemplate");
 
-const postsIds = new Array();
+let postsIds = new Array();
+const postsArray = new Array();
 
 idGenerator = () => {
     const range = 50000;
@@ -36,23 +37,25 @@ newPostContainer = (id) => {
     const container = postTemplate.cloneNode(true);
     container.classList.remove("hidden");
     container.classList.add("flex");
-    container.id = id.toString();
-    postsIds.push(id.toString());
+    container.id = id;
+    postsIds.push(id);
     return container;
 }
 
 createPost = (title, content) => {
-    titleInput = title.value;
-    contentInput = content.value;
+    titleInput = title.value.trim();
+    contentInput = content.value.trim();
+    const newID = idGenerator().toString();
 
-    const container = newPostContainer(idGenerator());
+    const container = newPostContainer(newID);
 
     container.querySelector(".post-title").textContent = titleInput;
     container.querySelector(".post-content").textContent = contentInput;
 
     console.log(container)
+    postsSection.prepend(container);
 
-    postsSection.appendChild(container);
+    postsArray.push({'id':newID,'title':titleInput,'content':contentInput});
 
     defaultContent(title, content);
 
@@ -95,4 +98,18 @@ postForm.querySelector("#postBtn").addEventListener("click", () => {
         if(validator(newPostTitle, newPostContent)){
             createPost(newPostTitle, newPostContent);
         }
+});
+
+postsSection.addEventListener("click", event => {
+    if(event.target.classList.contains("deleteBtn")){
+        const currentPost = event.target.closest("article");
+        postsIds = postsIds.filter( id => id !== currentPost.id );
+        postsArray.forEach((element, index) =>{
+            if(element.id === currentPost.id){
+                // delete one element from this index
+                postsArray.splice(index,1);
+            } 
+        })
+        currentPost.remove();
+    }
 });
