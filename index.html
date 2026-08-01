@@ -28,30 +28,26 @@
 
         <nav class="flex justify-center flex-wrap gap-5 top-0 sticky z-50 backdrop-blur px-7 navbar">
             <a class="nav-group" href="#homepage">Home</a>
-            <a class="nav-group" href="#">LinkedIn</a>
-            <a class="nav-group" href="#">Github</a>
-            <a class="nav-group" href="#">Portfolio</a>
-            <a class="nav-group" href="#">Frontend Mentors</a>
+            <a class="nav-group" href="https://www.linkedin.com/in/chadgarlen/">LinkedIn</a>
+            <a class="nav-group" href="https://github.com/chadgarc">Github</a>
+            <a class="nav-group" href="https://www.frontendmentor.io/profile/chadgarc">Frontend Mentors</a>
         </nav>
 
         <section class="flex justify-center">
             <button class="btn btn-Style rounded-3xl" onclick="post_modal.showModal()">Post +</button>
         </section>
         
-        <section class="flex flex-1 flex-col mx-auto w-3/4">
+        <section id="PostsSection" class="flex flex-1 flex-col mx-auto w-3/4">
 
             <!-- Post container template, hidden by default -->
-            <article id="" class="posts flex-col gap-3 mt-7 mb-7 border-2 border-black p-7 rounded-3xl hidden">
+            <article id="postTemplate" class="posts flex-col gap-3 mt-7 mb-7 border-2 border-black p-7 rounded-3xl hidden">
                 <header class="flex gap-3">
-                    <h2 class="me-auto post-title">
-                        
-                    </h2>
+                    <h2 class="me-auto post-title"></h2>
                     <button class="btn btn-Style rounded-3xl px-3 py-1 editBtn" onclick="edit_modal.showModal()">Edit</button>
                     <button class="btn deleteBtn btn-Style px-3 py-1 rounded-2xl">Delete</button>
                 </header>
-                <p class="post-content">
-                    
-                </p>
+
+                <p class="post-content"></p>
             </article>
             
         </section>
@@ -60,27 +56,28 @@
         <dialog id="post_modal" class="modal">
             <div class="modal-box">
                 <!-- Content -->
-                <form action="">
+                <form id="postForm" action="">
                     <h2>Adding New Post:</h2>
                     <label class="floating-label mt-6 mb-3">
                         <span class="font-bold text-xl">Title: </span>
-                        <input type="text" class="input input-primary" placeholder="Enter title" />
+                        <input id="new-post-title" type="text" class="input input-primary" placeholder="Enter title" />
                     </label>
-                    <span class="font-bold text-sm text-error hidden">Cannot be empty</span>
+                    <span class="font-bold text-sm text-error titleSpan hidden">Cannot be empty</span>
 
                     <label class="floating-label mt-5 mb-3">
                         <span class="font-bold text-xl">Content: </span>
-                        <textarea class="textarea textarea-primary" placeholder="Enter Content"></textarea>
+                        <textarea id="new-post-content" class="textarea textarea-primary" placeholder="Enter Content"></textarea>
                     </label>
-                    <span class="font-bold text-sm text-error mb-2 hidden">Cannot be empty</span>
+                    <span class="font-bold text-sm text-error mb-2 contentSpan hidden">Cannot be empty</span>
                     
                     <div class="modal-action">
                         <form method="dialog">
                             <!-- if there is a button in form, it will close the modal -->
-                            <button class="btn btn-Style rounded-3xl">Close</button>
+                            <button id="closeBtn" class="btn btn-Style rounded-3xl">Close</button>
                         </form>
-                        <button type="submit" class="btn btn-Style rounded-3xl">Post</button>
+                        <button id="postBtn" type="button" class="btn btn-Style rounded-3xl">Post</button>
                     </div>
+                    
                 </form>
             </div>
         </dialog>
@@ -90,26 +87,26 @@
         <dialog id="edit_modal" class="modal">
             <div class="modal-box">
                 <!-- Content -->
-                <form action="">
+                <form id="editForm" action="">
                     <h2>Edit Post:</h2>
                     <label class="floating-label mt-6 mb-3">
                         <span class="font-bold text-xl">Title: </span>
-                        <input type="text" class="input input-primary" placeholder="Enter title" />
+                        <input type="text" id="edit-post-title" class="input input-primary" placeholder="Enter title" />
                     </label>
                     <span class="font-bold text-sm text-error hidden">Cannot be empty</span>
 
                     <label class="floating-label mt-5 mb-3">
                         <span class="font-bold text-xl">Content: </span>
-                        <textarea class="textarea textarea-primary" placeholder="Enter Content"></textarea>
+                        <textarea id="edit-post-content" class="textarea textarea-primary" placeholder="Enter Content"></textarea>
                     </label>
                     <span class="font-bold text-sm text-error mb-2 hidden">Cannot be empty</span>
                     
                     <div class="modal-action">
                         <form method="dialog">
                             <!-- if there is a button in form, it will close the modal -->
-                            <button class="btn btn-Style rounded-3xl">Cancel</button>
+                            <button id="cancelBtn" class="btn btn-Style rounded-3xl">Cancel</button>
                         </form>
-                        <button type="submit" class="btn btn-Style rounded-3xl">Save Changes</button>
+                        <button type="submit" id="editBtn" class="btn btn-Style rounded-3xl">Save Changes</button>
                     </div>
                 </form>
             </div>
