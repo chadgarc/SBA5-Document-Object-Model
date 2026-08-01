@@ -35,31 +35,29 @@
         </nav>
 
         <section class="flex justify-center">
-            <button class="btn btn-Style rounded-3xl" onclick="my_modal_1.showModal()">Post +</button>
+            <button class="btn btn-Style rounded-3xl" onclick="post_modal.showModal()">Post +</button>
         </section>
         
         <section class="flex flex-1 flex-col mx-auto w-3/4">
 
-            <article id="" class="posts flex flex-col gap-3 mt-7 mb-7 border-2 border-black p-7 rounded-3xl">
+            <!-- Post container template, hidden by default -->
+            <article id="" class="posts flex-col gap-3 mt-7 mb-7 border-2 border-black p-7 rounded-3xl hidden">
                 <header class="flex gap-3">
-                    <h2 class="me-auto">
-                        Lorem ipsum dolor sit amet, consectetur
+                    <h2 class="me-auto post-title">
+                        
                     </h2>
-                    <button class="btn btn-Style px-3 py-1 rounded-2xl">Edit</button>
-                    <button class="btn btn-Style px-3 py-1 rounded-2xl">Delete</button>
+                    <button class="btn btn-Style rounded-3xl px-3 py-1 editBtn" onclick="edit_modal.showModal()">Edit</button>
+                    <button class="btn deleteBtn btn-Style px-3 py-1 rounded-2xl">Delete</button>
                 </header>
-                <p>
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque 
-                    laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto 
-                    beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut 
-                    odit aut fugit, sed quia consequuntur
+                <p class="post-content">
+                    
                 </p>
             </article>
             
         </section>
 
-        <!-- Open the modal using ID.showModal() method -->
-        <dialog id="my_modal_1" class="modal">
+        <!-- MODAL FOR NEW CONTENT -->
+        <dialog id="post_modal" class="modal">
             <div class="modal-box">
                 <!-- Content -->
                 <form action="">
@@ -82,6 +80,36 @@
                             <button class="btn btn-Style rounded-3xl">Close</button>
                         </form>
                         <button type="submit" class="btn btn-Style rounded-3xl">Post</button>
+                    </div>
+                </form>
+            </div>
+        </dialog>
+        
+        
+        <!-- MODAL FOR EDIT CONTENT -->
+        <dialog id="edit_modal" class="modal">
+            <div class="modal-box">
+                <!-- Content -->
+                <form action="">
+                    <h2>Edit Post:</h2>
+                    <label class="floating-label mt-6 mb-3">
+                        <span class="font-bold text-xl">Title: </span>
+                        <input type="text" class="input input-primary" placeholder="Enter title" />
+                    </label>
+                    <span class="font-bold text-sm text-error hidden">Cannot be empty</span>
+
+                    <label class="floating-label mt-5 mb-3">
+                        <span class="font-bold text-xl">Content: </span>
+                        <textarea class="textarea textarea-primary" placeholder="Enter Content"></textarea>
+                    </label>
+                    <span class="font-bold text-sm text-error mb-2 hidden">Cannot be empty</span>
+                    
+                    <div class="modal-action">
+                        <form method="dialog">
+                            <!-- if there is a button in form, it will close the modal -->
+                            <button class="btn btn-Style rounded-3xl">Cancel</button>
+                        </form>
+                        <button type="submit" class="btn btn-Style rounded-3xl">Save Changes</button>
                     </div>
                 </form>
             </div>
