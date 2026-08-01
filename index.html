@@ -62,23 +62,28 @@
         <dialog id="my_modal_1" class="modal">
             <div class="modal-box">
                 <!-- Content -->
-                <h2>Adding New Post:</h2>
-                <label class="floating-label mt-6 mb-4">
-                    <span class="font-bold text-xl">Title: </span>
-                    <input type="text" class="input input-primary" placeholder="Enter title" />
-                </label>
-                <label class="floating-label">
-                    <span class="font-bold text-xl">Content: </span>
-                    <textarea class="textarea textarea-primary" placeholder="Enter Content"></textarea>
-                </label>
-                
-                <div class="modal-action">
-                    <form method="dialog">
-                        <!-- if there is a button in form, it will close the modal -->
-                        <button class="btn btn-Style rounded-3xl">Close</button>
-                    </form>
-                    <button class="btn btn-Style rounded-3xl">Post</button>
-                </div>
+                <form action="">
+                    <h2>Adding New Post:</h2>
+                    <label class="floating-label mt-6 mb-3">
+                        <span class="font-bold text-xl">Title: </span>
+                        <input type="text" class="input input-primary" placeholder="Enter title" />
+                    </label>
+                    <span class="font-bold text-sm text-error hidden">Cannot be empty</span>
+
+                    <label class="floating-label mt-5 mb-3">
+                        <span class="font-bold text-xl">Content: </span>
+                        <textarea class="textarea textarea-primary" placeholder="Enter Content"></textarea>
+                    </label>
+                    <span class="font-bold text-sm text-error mb-2 hidden">Cannot be empty</span>
+                    
+                    <div class="modal-action">
+                        <form method="dialog">
+                            <!-- if there is a button in form, it will close the modal -->
+                            <button class="btn btn-Style rounded-3xl">Close</button>
+                        </form>
+                        <button type="submit" class="btn btn-Style rounded-3xl">Post</button>
+                    </div>
+                </form>
             </div>
         </dialog>
 
