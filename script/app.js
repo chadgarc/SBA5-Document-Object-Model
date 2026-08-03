@@ -119,15 +119,25 @@ validator = (form, title, content) => {
 }
 
 postForm.querySelector("#postBtn").addEventListener("click", () => {
-        if(validator(postForm, newPostTitle, newPostContent)){
-            createPost(newPostTitle, newPostContent);
-        }
+    if(validator(postForm, newPostTitle, newPostContent)){
+        createPost(newPostTitle, newPostContent);
+    }
+});
+
+postForm.querySelector("#closeBtn").addEventListener("click", () => {
+    defaultContent(newPostTitle,newPostContent);
+    document.getElementById("post_modal").close();
 });
 
 editForm.querySelector("#editBtn").addEventListener("click", () => {
-        if(validator(editForm, editPostTitle, editPostContent)){
-            editPost(editPostTitle, editPostContent, targetID);
-        }
+    if(validator(editForm, editPostTitle, editPostContent)){
+        editPost(editPostTitle, editPostContent, targetID);
+    }
+});
+
+editForm.querySelector("#cancelBtn").addEventListener("click", () => {
+    defaultContent(editPostTitle,editPostContent);
+    document.getElementById("edit_modal").close();
 });
 
 // If an element from postsection is clicked
@@ -155,3 +165,4 @@ postsSection.addEventListener("click", event => {
         targetID = currentPost.id;
     }
 });
+
