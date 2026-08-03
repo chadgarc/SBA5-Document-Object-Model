@@ -1,10 +1,3 @@
-
-I got inspitation from
-
-[link](https://cassidoo.co/blog/)
-
-
-
 # 📘 SBA – Document Object Model 
 A CRUD-based Post Manager built for the **Software Engineering Bootcamp (Per Scholas)**.  
 Developed using **HTML, SASS, TailwindCSS, DaisyUI, and JavaScript**, with a focus on DOM manipulation, event handling, validation, modals, and `localStorage` persistence.
