@@ -46,13 +46,15 @@
                     <button class="btn btn-Style rounded-3xl px-3 py-1 editBtn" onclick="edit_modal.showModal()">Edit</button>
                     <button class="btn deleteBtn btn-Style px-3 py-1 rounded-2xl">Delete</button>
                 </header>
-
                 <p class="post-content"></p>
+                <small class="postTime"></small>
             </article>
             
         </section>
 
         <!-- MODAL FOR NEW CONTENT -->
+        <!-- Cannot use submit, daisy ui modal will close the modal and it won't
+        allow me to make changes -->
         <dialog id="post_modal" class="modal">
             <div class="modal-box">
                 <!-- Content -->
@@ -62,19 +64,16 @@
                         <span class="font-bold text-xl">Title: </span>
                         <input id="new-post-title" type="text" class="input input-primary" placeholder="Enter title" />
                     </label>
-                    <span class="font-bold text-sm text-error titleSpan hidden">Cannot be empty</span>
+                    <span class="font-bold text-sm text-error titleSpan hidden">Title cannot be empty</span>
 
                     <label class="floating-label mt-5 mb-3">
                         <span class="font-bold text-xl">Content: </span>
                         <textarea id="new-post-content" class="textarea textarea-primary" placeholder="Enter Content"></textarea>
                     </label>
-                    <span class="font-bold text-sm text-error mb-2 contentSpan hidden">Cannot be empty</span>
+                    <span class="font-bold text-sm text-error mb-2 contentSpan hidden">Content cannot be empty</span>
                     
                     <div class="modal-action">
-                        <form method="dialog">
-                            <!-- if there is a button in form, it will close the modal -->
-                            <button id="closeBtn" class="btn btn-Style rounded-3xl">Close</button>
-                        </form>
+                        <button id="closeBtn" type="button" class="btn btn-Style rounded-3xl">Close</button>
                         <button id="postBtn" type="button" class="btn btn-Style rounded-3xl">Post</button>
                     </div>
                     
@@ -93,20 +92,17 @@
                         <span class="font-bold text-xl">Title: </span>
                         <input type="text" id="edit-post-title" class="input input-primary" placeholder="Enter title" />
                     </label>
-                    <span class="font-bold text-sm text-error hidden">Cannot be empty</span>
+                    <span class="font-bold text-sm text-error titleSpan hidden">Title cannot be empty</span>
 
                     <label class="floating-label mt-5 mb-3">
                         <span class="font-bold text-xl">Content: </span>
                         <textarea id="edit-post-content" class="textarea textarea-primary" placeholder="Enter Content"></textarea>
                     </label>
-                    <span class="font-bold text-sm text-error mb-2 hidden">Cannot be empty</span>
+                    <span class="font-bold text-sm text-error mb-2 contentSpan hidden">Content cannot be empty</span>
                     
                     <div class="modal-action">
-                        <form method="dialog">
-                            <!-- if there is a button in form, it will close the modal -->
-                            <button id="cancelBtn" class="btn btn-Style rounded-3xl">Cancel</button>
-                        </form>
-                        <button type="submit" id="editBtn" class="btn btn-Style rounded-3xl">Save Changes</button>
+                        <button id="cancelBtn" type="button" class="btn btn-Style rounded-3xl">Cancel</button>
+                        <button id="editBtn" type="button" class="btn btn-Style rounded-3xl">Save Changes</button>
                     </div>
                 </form>
             </div>

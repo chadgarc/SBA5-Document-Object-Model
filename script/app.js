@@ -14,6 +14,7 @@ const postTemplate = document.getElementById("postTemplate");
 
 let postsIds = new Array();
 const postsArray = new Array();
+let targetID = "";
 
 idGenerator = () => {
     const range = 50000;
@@ -33,6 +34,16 @@ defaultContent = (title, content) => {
     content.value = "";
 }
 
+getTime = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth();
+    const day = now.getDate();
+    const hour = now.getHours();
+    const minutes = now.getMinutes();
+    return `${year}-${month+1}-${day} at ${hour}:${minutes}`;
+};
+
 newPostContainer = (id) => {
     const container = postTemplate.cloneNode(true);
     container.classList.remove("hidden");
@@ -46,16 +57,17 @@ createPost = (title, content) => {
     titleInput = title.value.trim();
     contentInput = content.value.trim();
     const newID = idGenerator().toString();
+    const time = getTime();
 
     const container = newPostContainer(newID);
 
     container.querySelector(".post-title").textContent = titleInput;
     container.querySelector(".post-content").textContent = contentInput;
+    container.querySelector(".postTime").textContent = time;
 
-    console.log(container)
     postsSection.prepend(container);
 
-    postsArray.push({'id':newID,'title':titleInput,'content':contentInput});
+    postsArray.push({'id':newID, 'title':titleInput, 'content':contentInput, 'time':time});
 
     defaultContent(title, content);
 
@@ -63,53 +75,83 @@ createPost = (title, content) => {
 }
 
 editPost = (title, content, id) => {
-    titleInput = title.value;
-    contentInput = content.value;
+    titleInput = title.value.trim();
+    contentInput = content.value.trim();
 
     const container = document.getElementById(id);
-
+    console.log(container);
     container.querySelector(".post-title").textContent = titleInput;
     container.querySelector(".post-content").textContent = contentInput;
+    
+    console.log(container);
 
-    defaultContent(titleInput, contentInput);
+    // iterate posts arrays and compare ids of every object
+        postsArray.forEach((element, index) =>{
+            if(element.id === id){
+                element.title = titleInput;
+                element.content = contentInput;
+            } 
+        })
+
+    defaultContent(title, content);
+
+    document.getElementById("edit_modal").close();
 }
 
-validator = (title, content) => {
+validator = (form, title, content) => {
     if(title.value.trim() !== "" && content.value.trim() !== ""){
-        postForm.querySelector(".titleSpan").classList.add("hidden");
-        postForm.querySelector(".contentSpan").classList.add("hidden");
+        form.querySelector(".titleSpan").classList.add("hidden");
+        form.querySelector(".contentSpan").classList.add("hidden");
         return true;
     } else{
         if (title.value.trim() === ""){
-            postForm.querySelector(".titleSpan").classList.remove("hidden");
+            form.querySelector(".titleSpan").classList.remove("hidden");
         } else{
-            postForm.querySelector(".titleSpan").classList.add("hidden");
+            form.querySelector(".titleSpan").classList.add("hidden");
         }
         if (content.value.trim() === ""){
-            postForm.querySelector(".contentSpan").classList.remove("hidden");
+            form.querySelector(".contentSpan").classList.remove("hidden");
         } else{
-            postForm.querySelector(".contentSpan").classList.add("hidden");
+            form.querySelector(".contentSpan").classList.add("hidden");
         }
         return false;
     }
 }
 
 postForm.querySelector("#postBtn").addEventListener("click", () => {
-        if(validator(newPostTitle, newPostContent)){
+        if(validator(postForm, newPostTitle, newPostContent)){
             createPost(newPostTitle, newPostContent);
         }
 });
 
+editForm.querySelector("#editBtn").addEventListener("click", () => {
+        if(validator(editForm, editPostTitle, editPostContent)){
+            editPost(editPostTitle, editPostContent, targetID);
+        }
+});
+
+// If an element from postsection is clicked
 postsSection.addEventListener("click", event => {
+    // targeting the button clicked
     if(event.target.classList.contains("deleteBtn")){
+        // for the target button, I'll get the closest article, the current post
         const currentPost = event.target.closest("article");
+        // if id of this post is included in the array, I'll
+        // override the array list with another list excluding that specific id
         postsIds = postsIds.filter( id => id !== currentPost.id );
+        // iterate posts arrays and compare ids of every object
         postsArray.forEach((element, index) =>{
             if(element.id === currentPost.id){
                 // delete one element from this index
                 postsArray.splice(index,1);
             } 
         })
+        // remove current post
         currentPost.remove();
+    } else if (event.target.classList.contains("editBtn")){
+        const currentPost = event.target.closest("article");
+        editPostTitle.value = currentPost.querySelector('.post-title').textContent;
+        editPostContent.value = currentPost.querySelector('.post-content').textContent;
+        targetID = currentPost.id;
     }
 });
