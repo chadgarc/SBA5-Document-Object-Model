@@ -188,7 +188,7 @@ Overall, this project helped me improve my debugging skills, code organization, 
 
 ---
 
-### 4. Known Issues / Features Not Implemented
+### 3. Known Issues / Features Not Implemented
 - Posts currently only display the **creation timestamp**. A future enhancement could add a “last edited” timestamp or a small label indicating that the post was edited.
 - Posts cannot be reordered manually.  
 - There is no search or filtering functionality.  
