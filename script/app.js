@@ -1,21 +1,25 @@
-
+// Calling the elements retaled to new posts
 const newPostTitle = document.getElementById("new-post-title");
 const newPostContent = document.getElementById("new-post-content");
 const postForm = document.getElementById("postForm");
 const closeBtn = document.getElementById("closeBtn");
 
+// Calling the elements related to edit posts
 const editPostTitle = document.getElementById("edit-post-title");
 const editPostContent = document.getElementById("edit-post-content");
 const editForm = document.getElementById("editForm");
 const cancelBtn = document.getElementById("cancelBtn");
 
+// The postsSection and postTemplate
 const postsSection = document.getElementById("PostsSection");
 const postTemplate = document.getElementById("postTemplate");
 
+// Global variables to store ids, posts objects and manage target ID for editing posts
 let postsIds = new Array();
-const postsArray = new Array();
+let postsArray = new Array();
 let targetID = "";
 
+// Creates a new ID
 idGenerator = () => {
     const range = 50000;
     let newID = 0;
@@ -29,11 +33,13 @@ idGenerator = () => {
     return newID;
 }
 
+// Reset values from inputs
 defaultContent = (title, content) => {
     title.value = "";
     content.value = "";
 }
 
+// Gets the time and return a timestamp
 getTime = () => {
     const now = new Date();
     const year = now.getFullYear();
@@ -44,48 +50,60 @@ getTime = () => {
     return `${year}-${month+1}-${day} at ${hour}:${minutes}`;
 };
 
+// Clone the post template
 newPostContainer = (id) => {
     const container = postTemplate.cloneNode(true);
     container.classList.remove("hidden");
     container.classList.add("flex");
     container.id = id;
+
+    // Avoid duplicates after render
+    if (!postsIds.includes(id)) {
     postsIds.push(id);
+    }
     return container;
 }
 
+// Create a new container with the data given
+createContainer = (id, title, content, time) => {
+    const container = newPostContainer(id);
+
+    container.querySelector(".post-title").textContent = title;
+    container.querySelector(".post-content").textContent = content;
+    container.querySelector(".postTime").textContent = time;
+
+    return container;
+}
+
+// Creates new post using the new container
 createPost = (title, content) => {
-    titleInput = title.value.trim();
-    contentInput = content.value.trim();
+    let titleInput = title.value.trim();
+    let contentInput = content.value.trim();
     const newID = idGenerator().toString();
     const time = getTime();
 
-    const container = newPostContainer(newID);
-
-    container.querySelector(".post-title").textContent = titleInput;
-    container.querySelector(".post-content").textContent = contentInput;
-    container.querySelector(".postTime").textContent = time;
-
-    postsSection.prepend(container);
+    postsSection.prepend(createContainer(newID, titleInput, contentInput, time));
 
     postsArray.push({'id':newID, 'title':titleInput, 'content':contentInput, 'time':time});
 
     defaultContent(title, content);
 
+    saveState();
+
     document.getElementById("post_modal").close();
 }
 
+// Edit posts
 editPost = (title, content, id) => {
     titleInput = title.value.trim();
     contentInput = content.value.trim();
 
     const container = document.getElementById(id);
-    console.log(container);
     container.querySelector(".post-title").textContent = titleInput;
     container.querySelector(".post-content").textContent = contentInput;
-    
-    console.log(container);
 
     // iterate posts arrays and compare ids of every object
+    // Edite values of the container when the id is found
         postsArray.forEach((element, index) =>{
             if(element.id === id){
                 element.title = titleInput;
@@ -95,9 +113,12 @@ editPost = (title, content, id) => {
 
     defaultContent(title, content);
 
+    saveState();
+
     document.getElementById("edit_modal").close();
 }
 
+// Validate inputs, if not it will show the span with the error message
 validator = (form, title, content) => {
     if(title.value.trim() !== "" && content.value.trim() !== ""){
         form.querySelector(".titleSpan").classList.add("hidden");
@@ -118,6 +139,7 @@ validator = (form, title, content) => {
     }
 }
 
+// Listeners that will call all functions to create post, edit or delete
 postForm.querySelector("#postBtn").addEventListener("click", () => {
     if(validator(postForm, newPostTitle, newPostContent)){
         createPost(newPostTitle, newPostContent);
@@ -156,6 +178,7 @@ postsSection.addEventListener("click", event => {
                 postsArray.splice(index,1);
             } 
         })
+        saveState();
         // remove current post
         currentPost.remove();
     } else if (event.target.classList.contains("editBtn")){
@@ -166,3 +189,36 @@ postsSection.addEventListener("click", event => {
     }
 });
 
+// Save current data to localStorage
+saveState = () => {
+    localStorage.setItem('posts',JSON.stringify(postsArray));
+    localStorage.setItem('ids',JSON.stringify(postsIds));
+}
+
+// Load previous data from last refresh
+loadState = () => {
+    const posts = localStorage.getItem('posts');
+    const ids = localStorage.getItem('ids');
+
+    postsArray = posts ? JSON.parse(posts) : [];
+    postsIds = ids ? JSON.parse(ids) : [];
+}
+
+// Create posts with previous data
+renderLoadedPost = () => {
+    postsArray.forEach( post => {
+
+        const id =  post.id;
+        const title = post.title;
+        const content = post.content;
+        const time = post.time;
+        
+        postsSection.prepend(createContainer(id, title, content, time));
+    });
+}
+
+loadState();
+
+if(postsArray.length > 0){
+    renderLoadedPost();
+}
